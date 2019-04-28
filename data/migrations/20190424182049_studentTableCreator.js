@@ -13,7 +13,9 @@ exports.up = function(knex, Promise) {
       .inTable("schools")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    tbl.string("password",255).notNullable();
   });
+
 };
 
 exports.down = function(knex, Promise) {
