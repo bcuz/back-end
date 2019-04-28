@@ -11,7 +11,7 @@ module.exports = {
   },
 
  getAllStudents: async () =>{
-      return db('students');
+      return db('students').innerJoin('schools', 'schools.id','=', 'students.school_id');
   }
 
 };
