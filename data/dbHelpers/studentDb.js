@@ -9,17 +9,19 @@ module.exports = {
       .first();
   },
   getStudentById: async student => {
-    const [id] = await db("students");
+    
 
     return db("students")
-      .where({ id })
+      .innerJoin("schools", "schools.id", "=", "students.school_id")
+      .innerJoin("threads", "threads.student_id", "=", "students.id")
+      .innerJoin("bubl", "bubl.id", "=", "threads.bubl_id")
+      .where({ "students.id": student })
       .first();
   },
 
   getAllStudents: async () => {
     return db("students")
       .innerJoin("schools", "schools.id", "=", "students.school_id")
-      .innerJoin("threads", "threads.student_id", "=", "students.id")
-      .innerJoin("bubl", "bubl.id", "=", "threads.bubl_id");
+      
   }
 };
