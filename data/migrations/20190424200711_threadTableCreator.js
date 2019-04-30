@@ -10,6 +10,14 @@ exports.up = function(knex, Promise) {
       .inTable("bubl")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    tbl
+      .integer("student_id")
+      .notNullable()
+      .unsigned()
+      .references("id")
+      .inTable("students")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
 };
 
