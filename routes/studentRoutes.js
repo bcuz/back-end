@@ -11,5 +11,16 @@ router.get('/students', async (req, res)=>{
         res.status(500),json(error)
     }
 })
+router.get('/students/:id', async (req, res)=>{
+    try{
+        const students = await db.getStudentById(req.params.id)
+        res.status(200).json(students);
+    }
+    catch(error){
+        res.status(500),json(error)
+    }
+})
+
+
 
 module.exports = router;

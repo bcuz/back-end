@@ -8,6 +8,13 @@ module.exports = {
       .where({ id })
       .first();
   },
+  getStudentById: async student => {
+    const [id] = await db("students");
+
+    return db("students")
+      .where({ id })
+      .first();
+  },
 
   getAllStudents: async () => {
     return db("students")
