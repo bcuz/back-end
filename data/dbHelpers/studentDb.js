@@ -23,5 +23,10 @@ module.exports = {
     return db("students")
       .innerJoin("schools", "schools.id", "=", "students.school_id")
       
+  },
+  registerStudent: async (student)=>{
+    const id = await db('students').insert(student);
+
+    return getStudentById(id);
   }
 };

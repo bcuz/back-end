@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require("express");
 const db = require("../data/dbHelpers/studentDb.js");
 const router = express.Router();
+const {authenticate} = require('../auth/authenticate.js');
 
-router.get("/students", async (req, res) => {
+router.get("/students",authenticate, async (req, res) => {
   try {
     const students = await db.getAllStudents();
     res.status(200).json(students);
@@ -11,7 +13,7 @@ router.get("/students", async (req, res) => {
   }
 });
 
-router.get("/students/:id", async (req, res) => {
+router.get("/students/:id",authenticate, async (req, res) => {
   try {
     const  id = req.params.id;
     const students = await db.getStudentById(id);
@@ -28,5 +30,7 @@ router.get("/students/:id", async (req, res) => {
       .json({ error: "Student information could not be retrieved." });
   }
 });
+
+
 
 module.exports = router;
