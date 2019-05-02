@@ -7,7 +7,7 @@ const jwtKey =
 const generateToken = user => {
   console.log(user);
   const payload = {
-    subject: user.id,
+    id: user.id,
     username: user.username
   };
 

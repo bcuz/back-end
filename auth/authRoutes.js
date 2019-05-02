@@ -3,7 +3,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const db = require("../data/dbconfig");
 const { generateToken } = require("./token-service.js");
-const router = express();
+const router = express.Router();
 const User = require("../data/dbHelpers/studentDb");
 
 router.post("/register", (req, res) => {
@@ -38,12 +38,13 @@ router.post("/login", (req, res) => {
     .where({ username: creds.username })
     .first()
     .then(user => {
+        console.log(user.id)
       if (user && bcrypt.compareSync(creds.password, user.password)) {
         const token = generateToken(user);
         res.status(200).json({
           message: `${user.username} is logged in`,
-          token,
-          id: user.id
+          token, 
+          id:user.id
         });
       } else {
         res.status(401).json({ message: "You shall not pass!" });

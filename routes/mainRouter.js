@@ -5,10 +5,10 @@ const {generateToken} = require('../auth/token-service')
 const studentRouter = require('./studentRoutes');
 const authRouter = require('../auth/authRoutes')
 const db = require('../data/dbconfig');
-const { authenticate } = require('../auth/authenticate');
 
 
-router.use('/',studentRouter,authRouter,authenticate);
+
+router.use('/students',studentRouter,authRouter);
 
 router.get('/', generateToken, (req, res) => {
 	db('students')

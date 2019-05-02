@@ -4,16 +4,16 @@ const db = require("../data/dbHelpers/studentDb.js");
 const router = express.Router();
 const {authenticate} = require('../auth/authenticate.js');
 
-router.get("/students",authenticate, async (req, res) => {
+router.get("/",authenticate, async (req, res) => {
   try {
-    const students = await db.getAllStudents();
+    const students = await db.getAllStudents(req.body);
     res.status(200).json(students);
   } catch (error) {
     res.status(500), json(error);
   }
 });
 
-router.get("/students/:id",authenticate, async (req, res) => {
+router.get("/:id",authenticate, async (req, res) => {
   try {
     const  id = req.params.id;
     const students = await db.getStudentById(id);

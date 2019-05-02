@@ -12,17 +12,17 @@ module.exports = {
     
 
     return db("students")
-      .innerJoin("schools", "schools.id", "=", "students.school_id")
-      .innerJoin("threads", "threads.student_id", "=", "students.id")
-      .innerJoin("bubl", "bubl.id", "=", "threads.bubl_id")
+      .join("schools", "schools.id",  "students.school_id")
+      .join("threads", "students.id", "threads.student_id")
+      .join("bubl","threads.bubl_id", "bubl.id")
       .where({ "students.id": student })
       .first();
   },
 
   getAllStudents: async () => {
     return db("students")
-      .innerJoin("schools", "schools.id", "=", "students.school_id")
-      
+      .join("schools", "schools.id", "=", "students.school_id")
+           
   },
   registerStudent: async (student)=>{
     const id = await db('students').insert(student);
