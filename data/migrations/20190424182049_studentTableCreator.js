@@ -5,17 +5,15 @@ exports.up = function(knex, Promise) {
     tbl.string("firstName", 255).notNullable();
     tbl.string("lastName", 255).notNullable();
     tbl.integer("age");
+    tbl.integer('school_id').unsigned()
     tbl
-      .integer("school_id")
-      .notNullable()
-      .unsigned()
+      .foreign("school_id")
       .references("id")
       .inTable("schools")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-    tbl.string("password",255).notNullable();
+    tbl.string("password", 255).notNullable();
   });
-
 };
 
 exports.down = function(knex, Promise) {
