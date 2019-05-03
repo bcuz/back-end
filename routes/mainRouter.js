@@ -3,12 +3,14 @@ const express = require('express');
 const router = express.Router();
 const {generateToken} = require('../auth/token-service')
 const studentRouter = require('./studentRoutes');
+const threadRouter = require('./threadRoutes.js')
 const authRouter = require('../auth/authRoutes')
 const db = require('../data/dbconfig');
 
 
 
 router.use('/students',studentRouter,authRouter);
+router.use('/threads',threadRouter)
 
 router.get('/', generateToken, (req, res) => {
 	db('students')
