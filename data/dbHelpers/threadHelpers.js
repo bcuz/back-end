@@ -17,13 +17,13 @@ module.exports = {
       .first();
   },
   getThreadWithCommentById: async thread => {
-    return db("threads")
-      .select("threads.*", "students.username","bubl.bublName","comments.comments")
+    return db("comments")
+      .select("comments.*", "students.username","bubl.bublName","threads.title")
       .join("students", "students.id", "threads.student_id")
       .join("bubl", "threads.bubl_id", "bubl.id")
-      .join("comments", "threads.id", "comments.thread_id")
-      .where({ "threads.id": thread })
-      .first();
+      .join("threads", "threads.id", "comments.thread_id")
+      .where({ "comments.thread_id": thread })
+      
   },
 
   getAllThreads: async () => {
