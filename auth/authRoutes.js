@@ -15,18 +15,7 @@ router.post("/register", (req, res) => {
     .then(saved => {
       res.status(201).json(saved);
     })
-    .then(user => {
-      if (user && bcrypt.compareSync(creds.password, user.password)) {
-        const token = generateToken(user);
-        res.status(200).json({
-          message: `${user.username} is logged in`,
-          token,
-          id: user.id
-        });
-      } else {
-        res.status(401).json({ message: "You shall not pass!" });
-      }
-    })
+   
     .catch(error => {
       res.status(500).json(error);
     });

@@ -23,9 +23,9 @@ module.exports = {
       .select("students.*", "schools.schoolName")
       .join("schools", "students.school_id", "schools.id");
   },
-  registerStudent: async student => {
-    const id = await db("students").insert(student);
-
-    return getStudentById(id);
+  registerStudent: student => {
+    
+    return db("students").insert(student);
+    
   }
 };
