@@ -27,17 +27,23 @@ router.post("/login", (req, res) => {
     .where({ username: creds.username })
     .first()
     .then(user => {
-        console.log(user.id)
-      if (user && bcrypt.compareSync(creds.password, user.password)) {
-        const token = generateToken(user);
-        res.status(200).json({
-          message: `${user.username} is logged in`,
-          token, 
-          id:user.id
-        });
+        // console.log(user)
+      if (user) {      
+        // shouldnt work on bad password
+        if (bcrypt.compareSync(creds.password, user.password)) {
+          console.log('here')
+          const token = generateToken(user); 
+          res.status(200).json({
+            message: `${user.username} is logged in`,
+            token, 
+            id:user.id
+          });      
+        } else {
+          res.status(401).json({ message: "You shall not pass!" });
+        }
       } else {
-        res.status(401).json({ message: "You shall not pass!" });
-      }
+        res.status(404).json({ message: 'user not found' })
+      } 
     })
     .catch(() =>
       res.status(500).json({ message: "Please try logging in again." })
