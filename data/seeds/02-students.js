@@ -1,5 +1,10 @@
+const bcrypt = require('bcryptjs');
+
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
+
+  const hash = bcrypt.hashSync('in', 10);
+
   return knex("students")
     .truncate()
     .then(function() {
@@ -12,7 +17,7 @@ exports.seed = function(knex, Promise) {
           lastName: "Builder",
           age: 12,
           school_id: 1,
-          password: 'password'
+          password: hash
         },
         {
          
@@ -21,7 +26,7 @@ exports.seed = function(knex, Promise) {
           lastName: "Snow",
           age: 11,
           school_id: 2,
-          password: 'password'
+          password: hash
         },
         {
           
@@ -30,7 +35,7 @@ exports.seed = function(knex, Promise) {
           lastName: "Ogle",
           age: 33,
           school_id: 4,
-          password: 'password'
+          password: hash
         }
       ]);
     });
