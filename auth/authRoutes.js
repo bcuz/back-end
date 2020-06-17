@@ -8,6 +8,11 @@ const User = require("../data/dbHelpers/studentDb");
 
 router.post("/register", (req, res) => {
   let user = req.body;
+
+  if (!user.username || !user.password) {
+    return res.status(400).json({ message: 'Need username and password' })
+  }
+
   const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
 
